@@ -28,6 +28,7 @@ and program will automatically generates this functions . and using dlfcn librar
 
 
 
+**Note: not give correct op when left recursion **
 ##  Run locally 
 ### Requirements 
 * G++ compiler 
