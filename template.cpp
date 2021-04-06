@@ -13,9 +13,9 @@ string include_part = R"(
 #include<iostream>
 
 using namespace std;
-string line = "";
-char cur =line[0];
-int pos = 0 ;
+extern string line = "";
+extern char cur =line[0];
+extern int pos = 0 ;
 
 )";
 
@@ -78,12 +78,17 @@ void generate_template(string line){
                 if( cur=='$'){
                     return ;
                 }
+            )";
+            if(open_bracket>1) {
+                function+='}';
+                open_bracket--;
             }
+            
+            function+=R"(
                 pos = temp_pos;
                 cur = line[pos];
             )";
             if_stmt = 1;
-            open_bracket--;
             continue;
         }
         
@@ -125,11 +130,13 @@ void generate_template(string line){
     }
     if(open_bracket>1)
     {
+        open_bracket--;
         function+=R"(
                 if( cur=='$'){
                     return ;
                 }
             )";
+        while(open_bracket--)
         function+="}\n";
     }
 
